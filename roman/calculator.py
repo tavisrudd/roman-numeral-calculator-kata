@@ -11,16 +11,28 @@ class RomanNumeral(object):
         self.value = value
 
     def to_int(self):
-        return 1
+        return self._parse(self.value) 
 
     def _parse(self, value):
-        current = None
-        for char in value.reverse():
-            if current is None:
-                current = self.mapping[char]
-            else:
-                current -= self.mapping[char]
-        return current
+        last = None
+	res = 0
+        for current in value:
+            i = self.mapping[current]
+	    if last is not None:
+                if last < i:
+                    res -= last
+                else:
+                    res += last
+            last = i
+        res += last
+        return res
 
+    ones = ['I', 'X', 'C', 'M']
+    fives = ['V', 'L', 'D']
+    
+#    def _roman_digit(self, power, digit):
+#        if 0 <= digit <= 3S
 
+#    def __str__(self):
+#        num = self.key
 
