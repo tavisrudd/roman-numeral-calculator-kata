@@ -7,11 +7,11 @@ class RomanNumeral(object):
                'D': 500,
                'M': 1000}
 
-    def __init__(self, value):
-        self.value = value
-
-    def to_int(self):
-        return self._parse(self.value) 
+    def __init__(self, roman):
+	if isinstance(roman, int):
+	    self.value = roman
+        else:
+            self.value = self._parse(roman)
 
     def _parse(self, value):
         last = None
@@ -26,6 +26,9 @@ class RomanNumeral(object):
             last = i
         res += last
         return res
+
+    def __add__(self, other):
+        return RomanNumeral(self.value + other.value)
 
     ones = ['I', 'X', 'C', 'M']
     fives = ['V', 'L', 'D']
